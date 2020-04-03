@@ -1,0 +1,34 @@
+.emails-board {
+  width: 100%;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 1px solid #C3C2CF;
+  min-height: 6rem;
+  margin-bottom: 1.4rem;
+  padding: .5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  &__button {
+    font-size: .8rem;
+    -webkit-transition: .2s opacity ease;
+    -moz-transition: .2s opacity ease;
+    -ms-transition: .2s opacity ease;
+    -o-transition: .2s opacity ease;
+    transition: .2s opacity ease;
+    background-color: #FFFFFF;
+    opacity: .4;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__title {
+    font-size: 1.4rem;
+  }
+}
