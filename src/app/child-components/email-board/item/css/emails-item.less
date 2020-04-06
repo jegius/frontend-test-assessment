@@ -1,3 +1,73 @@
 .emails-item {
+  display: flex;
+  align-items: center;
+  margin-right: .4rem;
+  margin-bottom: .25rem;
+  max-width: 95%;
+  padding: .2rem .5rem;
+  transition: .2s background-color ease;
 
+  &_valid {
+    background-color: rgba(102, 153, 255, 0.2);
+    border-radius: 100px;
+
+    &:hover {
+      background-color: rgba(102, 153, 255, 0.4);
+    }
+  }
+
+  &_invalid {
+    padding: .2rem 0;
+    border-bottom: 1px dashed #D92929;
+
+    .emails-item {
+      &__close-button {
+        margin-right: 0;
+      }
+
+      &__input {
+        text-align: left;
+      }
+    }
+  }
+
+  &__input {
+    max-width: 96%;
+    text-align: left;
+    background-color: transparent;
+  }
+
+  &__close-button {
+    width: .7rem;
+    height: .7rem;
+    position: relative;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin-left: .3rem;
+
+    &:hover:before, &:hover:after {
+      opacity: 1;
+    }
+
+    &:before, &:after {
+      content: '';
+      display: block;
+      height: 2px;
+      width: 100%;
+      background-color: #000;
+      position: absolute;
+      top: 45%;
+      opacity: .6;
+      transition: .2s opacity ease;
+    }
+
+    &:before {
+      transform: rotateZ(45deg);
+    }
+
+    &:after {
+      transform: rotateZ(-45deg);
+    }
+  }
 }

@@ -42,8 +42,8 @@ module.exports = {
                 test: /\.(less)$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "less-loader"
+                    'css-loader',
+                    'less-loader'
                 ]
             },
             {
@@ -71,9 +71,8 @@ module.exports = {
     ],
     devtool: 'cheap-module-source-map',
     devServer: {
-        proxy: {
-            '/api': 'http://localhost:3000'
-        }
+        compress: true,
+        disableHostCheck: true,
     }
 };
 

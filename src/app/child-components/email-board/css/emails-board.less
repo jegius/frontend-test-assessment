@@ -1,16 +1,17 @@
 .emails-board {
   width: 100%;
   border-radius: 4px;
+  flex-wrap: wrap;
   box-sizing: border-box;
   background: #FFFFFF;
   border: 1px solid #C3C2CF;
-  min-height: 6rem;
-  margin-bottom: 1.4rem;
+  height: 6.7rem;
   padding: .5rem;
   overflow-y: auto;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
+  align-content: flex-start;
 
   &__button {
     font-size: .8rem;
@@ -20,6 +21,7 @@
     -o-transition: .2s opacity ease;
     transition: .2s opacity ease;
     background-color: #FFFFFF;
+    height: 1.7rem;
     opacity: .4;
     cursor: pointer;
 
@@ -30,5 +32,11 @@
 
   &__title {
     font-size: 1.4rem;
+  }
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .emails-board {
+    align-items: flex-start;
   }
 }

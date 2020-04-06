@@ -14,14 +14,11 @@ module.exports = {
 
     module: {
         rules: [
-            // PRE-LOADERS
             {
                 enforce: 'pre',
                 test: /\.js$/,
                 use: 'source-map-loader'
             },
-
-            // LOADERS
             {
                 test: /\.ts$/,
                 exclude: [ /node_modules/ ],

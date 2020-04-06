@@ -1,0 +1,1 @@
+web: npm i --only=dev && npm run start:heroku

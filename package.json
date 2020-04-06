@@ -5,12 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --port 9000 --inline --progress --profile --colors --watch --content-base src/ --mode development",
+    "start:heroku": "webpack-dev-server --port $PORT --host 0.0.0.0",
     "build": "webpack --config webpack.config.js --mode production",
     "build.prod": "webpack --config webpack.config.js -p",
-    "build.esnext": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\" --source-maps inline",
-    "build.all": "npm run build.prod && npm run build.esnext",
     "test": "karma start karma.config.js"
   },
   "keywords": [
@@ -26,6 +24,7 @@
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "file-loader": "^6.0.0",
+    "karma-es6-shim": "^1.0.0",
     "style-loader": "^1.1.3",
     "css-loader": "^3.4.2",
     "awesome-typescript-loader": "^5.2.1",
