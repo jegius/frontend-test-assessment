@@ -1,38 +1,91 @@
-import { EmailService } from './email.service.api';
-import { HttpService } from '../http/http.service.api';
+import { EmailModel, EmailService } from './email.service.api';
+import { Subscription } from '../common-api';
 
 export class EmailServiceImplementation extends EmailService {
-    private emails: string[] = ['jegius@gmial.com', 'test@test.com', 'invalid.email'];
+    private subscriptions: Subscription[] = [];
+    private emails: EmailModel[] = [];
+    private baseEmailsId: number = 0;
 
-    constructor(
-        private readonly httpService: HttpService
-    ) {
+    constructor() {
         super();
     }
 
-    addEmail(email: string): void {
-        this.emails.push(email);
+    addEmail(email: string, callback?: (model: EmailModel)  => void): void {
+        const id: string = `${this.baseEmailsId++}`;
+        this.emails.push({
+            email,
+            id
+        });
+
+        if (callback) {
+            callback({
+                id,
+                email
+            });
+        }
+        this.notifySubscribers();
     }
 
-    edit(oldEmail: string, newValue: string): void {
-        const index: number = this
+    update(newEmail: EmailModel): void {
+        const [updatedEmail]: EmailModel[] = this
             .emails
-            .findIndex((email: string) => email === oldEmail);
-        this.emails.splice(index, 1, newValue);
+            .filter(({id}: EmailModel) => id === newEmail.id);
+
+        updatedEmail.email = newEmail.email;
+        this.notifySubscribers();
     }
 
     getEmailCount(): number {
         return this.emails.length;
     }
 
-    getEmails(): string[] {
+    getEnteredEmails(): string[] {
+        return this.emails.map(({email}: EmailModel) => email);
+    }
+
+    getEmails(): EmailModel[] {
         return this.emails;
     }
 
-    remove(email: string): void {
-        const index: number = this
+    setEmails(callback: () => void, emails: string[]): void {
+        this.emails = emails
+            .map((email: string) => ({
+                email,
+                id: `${this.baseEmailsId++}`
+            }));
+        callback();
+        this.notifySubscribers();
+    }
+
+    remove(emailId: string): void {
+        this.emails = this
             .emails
-            .findIndex((email: string) => email === email);
-        this.emails.splice(index, 1);
+            .filter((email: EmailModel) => email.id !== emailId);
+        this.notifySubscribers();
+    }
+
+    removeLast(): void {
+        this.emails.pop();
+        this.notifySubscribers();
+    }
+
+    addRandomEmail(callback: (model: EmailModel) => void): void {
+        this.addEmail(`${Math.round(Math.random() * 1000)}@test.com`, callback);
+    }
+
+    subscribeOnChanges(callback: (emails: string[]) => void): Subscription {
+        const newSubscription: Subscription = new Subscription(this.subscriptions, callback);
+        this.subscriptions.push(newSubscription);
+        return newSubscription;
+    }
+
+    private notifySubscribers(): void {
+        const emails: string[] = this
+            .emails
+            .map((model: EmailModel) => model.email);
+
+        this
+            .subscriptions
+            .forEach((subscription: Subscription) => subscription.callback(emails));
     }
 }

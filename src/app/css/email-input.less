@@ -5,15 +5,36 @@
   display: flex;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   flex-direction: column;
-  min-width: 35rem;
+  width: 100%;
+  height: 100%;
 
   &__body {
     background-color: #F8F8F7;
     padding: 2.5rem 3.5rem 0 3.5rem;
-    height: 10.5rem;
+    min-height: 11rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+  }
+
+  &__board-wrapper {
+    padding: .4rem;
+    margin-bottom: .9rem;
+    position: relative;
+    right: .6rem;
+    box-sizing: border-box;
+    border: 1px dashed transparent;
+
+    &_invalid {
+      border: 1px dashed #D92929;
+      border-radius: 4px;
+    }
+  }
+
+  &__notification {
+    font-size: .8rem;
+    color: #D92929;
+    margin-bottom: .2rem;
   }
 
   &__footer {

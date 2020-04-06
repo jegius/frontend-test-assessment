@@ -4,12 +4,12 @@ webpackConfig.mode = 'production';
 module.exports = function(config) {
   config.set({
     singleRun: true,
-    
     browsers: [
       'PhantomJS'
     ],
-
+    autoWatch: true,
     frameworks: [
+      'es6-shim',
       'jasmine'
     ],
 
@@ -30,6 +30,7 @@ module.exports = function(config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-phantomjs-launcher'),
+      require('karma-es6-shim'),
       require('karma-webpack')
     ]
   });

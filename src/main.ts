@@ -1,23 +1,15 @@
 import 'main.less';
 import { EmailInputComponent } from './app/email-input.component';
-import { LocalizationService } from './app/services/localization/localization.service.api';
-import { LocalizationServiceImplementation } from './app/services/localization/localization.service';
-import { HttpService } from './app/services/http/http.service.api';
-import { HttpServiceImplementation } from './app/services/http/http.service';
-import { EmailService } from './app/services/email/email.service.api';
-import { EmailServiceImplementation } from './app/services/email/email.service';
+import { ComponentApi, Subscription } from './app/services/common-api';
 
-const HOST_CLASS: string = '.host';
-
-const document: Document = window.document;
+const HOST_CLASS: string = '.host__container';
 const host: HTMLElement = window.document.querySelector(HOST_CLASS);
-const localizationService: LocalizationService = new LocalizationServiceImplementation();
-const httpService: HttpService = new HttpServiceImplementation();
-const emailService: EmailService = new EmailServiceImplementation(httpService);
 
-new EmailInputComponent(
-    document,
-    host,
-    localizationService,
-    emailService,
-).render();
+const createEmailApi: ComponentApi = new EmailInputComponent(host).render();
+const emailSubscription: Subscription = createEmailApi
+    .subscribeOnChanges((emails: string[]) => console.log(emails));
+
+createEmailApi.setEmails(['123@sfdf.com', '13323@sfdf.com']);
+console.log(`Entered emails: ${createEmailApi.getEnteredEmails()}`);
+
+emailSubscription.unsubscribe();

@@ -2,9 +2,9 @@ import { LocalizationService } from '../../services/localization/localization.se
 import { createElement, ElementConfig, Elements } from '../../utils/utils';
 
 export class EmailsFooterComponent {
-    selfElement: HTMLElement;
+    readonly selfElement: HTMLElement;
     readonly CLASS: string = 'emails-footer';
-    readonly ELEMENT_TYPE: Elements = Elements.DIV;
+    private readonly ELEMENT_TYPE: Elements = Elements.DIV;
 
     readonly config: ElementConfig = {
         type: this.ELEMENT_TYPE,

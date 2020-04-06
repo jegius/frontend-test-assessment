@@ -1,12 +1,29 @@
+import { Subscription } from '../common-api';
+
+export interface EmailModel {
+    id: string;
+    email: string;
+}
+
 export abstract class EmailService {
 
-    abstract getEmails(): string[];
+    abstract getEmails(): EmailModel[];
 
-    abstract addEmail(email: string): void;
+    abstract getEnteredEmails(): string[];
 
-    abstract remove(email: string): void;
+    abstract setEmails(callback: () => void, emails: string[]): void;
+
+    abstract addEmail(email: string, callback?: (model: EmailModel) => void): void;
+
+    abstract removeLast(): void;
+
+    abstract remove(emailId: string): void;
 
     abstract getEmailCount(): number;
 
-    abstract edit(oldEmail: string, newValue: string): void;
+    abstract update(newEmail: EmailModel): void;
+
+    abstract addRandomEmail(callback: (model: EmailModel) => void): void;
+
+    abstract subscribeOnChanges(callback: (emails: string[]) => void): Subscription;
 }
